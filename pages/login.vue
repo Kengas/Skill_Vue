@@ -35,32 +35,36 @@ import axios from 'axios'
       username: '',
       password: '',
     }),
-    mounted() {
-      // sessionStorage.setItem('status' , 0)
-    },
     methods: {
      async submit () {
-        const member = {
+        
+        try{
+          const member = {
             username: this.username,
-            password: this.password,    
-        }
-        const res = await axios.post('http://localhost:4500/login' , member)    
-        // console.log(`user => ` , this.username)
-        // console.log(`pass => ` , this.password)        
-        // console.log(`member => ` , member)        
-        // console.log(`res => ` , res.data.status)
-        if(res.data.status == 1){
-          sessionStorage.setItem("username" ,  res.data.val.username)
-          sessionStorage.setItem("password" ,  res.data.val.password)
-          sessionStorage.setItem("status" ,  res.data.status)  
-          sessionStorage.setItem("user_id" ,  res.data.val.user_id)
-          sessionStorage.setItem("user_level" ,  res.data.val.user_level)
+            password: this.password,            
+          }
+          const res = await axios.post('http://localhost:9000/api/signin' , member)    
+          // console.log(`user => ` , this.username)
+          // console.log(`pass => ` , this.password)        
+          // console.log(`member => ` , member)        
+          // console.log(`res => ` , res.data.status)
 
-          // console.log(`session-username => ` , res.data.val.user_id)
-          // console.log(`session-password => ` , res.data.val.password)
-          this.$router.push('/check')
-        }else{          
-          console.log(res.data.msg)          
+          if(res.data.token){
+            // sessionStorage.setItem("username" ,  res.data.val.username)
+            // sessionStorage.setItem("password" ,  res.data.val.password)
+            // sessionStorage.setItem("status" ,  res.data.status)  
+            // sessionStorage.setItem("user_id" ,  res.data.val.user_id)
+            // sessionStorage.setItem("user_level" ,  res.data.val.user_level)
+            localStorage.setItem("token" , res.data.token)
+            // // console.log(`session-username => ` , res.data.val.user_id)
+            // // console.log(`session-password => ` , res.data.val.password)
+            // this.$router.push('/check')
+            console.log('complete => ' , res.data.ok)
+          }else{                  
+            console.log('failed => ' , res.data.ok)
+          }
+        }catch(e){
+          console.log(e.message)
         }
 
       },

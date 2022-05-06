@@ -47,7 +47,7 @@
                 <td>{{ item.student_id }}</td>
                 <td>{{ item.user_first }}</td>
                 <td>{{ item.user_last }}</td>
-                <p>{{ index }}</p>
+                <!-- <p>{{ index }}</p> -->
                 <td>
                   <v-radio-group v-model="status[index]" row>
                     
@@ -99,7 +99,7 @@
 <script>
 import axios from 'axios'
 export default {
-  layout: 'Theme1',
+  // layout: 'Theme1',
   data  () {
     return {
       users_student: [],
@@ -138,7 +138,7 @@ export default {
   },
   methods: {
     async showData () {      
-      const res = await fetch('http://localhost:4500/list_std')
+      const res = await fetch('http://localhost:9000/list')
       const data = await res.json()
       this.users_student = data.datas
       console.log(this.users_student)
@@ -173,7 +173,7 @@ export default {
                       {student_user_id : this.users_student[index].student_user_id},
                       {teacher_check : this.teacher_check},
                       {advisor_check : this.advisor_check},
-                      {teacher_id : this.teacher_id},
+                      {teacher_id : 244},
                     ]
         }
 
@@ -188,7 +188,7 @@ export default {
       //  console.log(`info => `, info)
 
         
-        const res = await axios.post('http://localhost:4500/save' , info )
+        const res = await axios.post('http://localhost:9000/save' , info )
 
         // console.log(`save_group =>` , this.users_student[0].group_id)
         // console.log(`save_id =>` , this.users_student[0].id)

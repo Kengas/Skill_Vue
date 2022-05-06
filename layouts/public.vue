@@ -30,12 +30,12 @@
       app
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-<!--       
+<!--
       <v-btn
         icon
         @click.stop="miniVariant = !miniVariant"
       >
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
+        <v-icon>mdi-{{ chevron-${miniVariant ? 'right' : 'left'} }}</v-icon>
       </v-btn>
       <v-btn
         icon
@@ -52,7 +52,7 @@
 
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      
+
       <!-- <v-btn
         icon
         @click.stop="rightDrawer = !rightDrawer"
@@ -93,28 +93,8 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
-    async beforeMount() {
-     console.log('beforeRouteEnte')
-    let token = localStorage.getItem('token')
-    console.log('token=', token)
-    if (!token) {
-       this.$router.push('/login')
-    }
-    // GET PROFILE
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`
-    // axios.defaults.headers.common['X-Powered-By'] = 'Somsak'
-
-    let { data } = await axios.get('/api/profile')
-    console.log('data=', data)
-    this.$router.push('/check')
-    if (!data.profile) {
-
-    }
-   },
-
-  // name: 'DefaultLayout',
+    // name: 'DefaultLayout',
   data () {
     return {
       clipped: false,
