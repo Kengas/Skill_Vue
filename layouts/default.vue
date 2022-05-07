@@ -99,19 +99,20 @@ export default {
      console.log('beforeRouteEnte')
     let token = localStorage.getItem('token')
     console.log('token=', token)
+    
     if (!token) {
        this.$router.push('/login')
     }
-    // GET PROFILE
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`
-    // axios.defaults.headers.common['X-Powered-By'] = 'Somsak'
+       // GET PROFILE
+      axios.defaults.headers.common.Authorization = `Bearer ${token}`
+      // axios.defaults.headers.common['X-Powered-By'] = 'Somsak'
 
-    let { data } = await axios.get('/api/profile')
-    console.log('data=', data)
-    this.$router.push('/check')
-    if (!data.profile) {
+      let { data } = await axios.get('http://localhost:9000/profile')
+      console.log('data=', data)
+      this.$router.push('/check')
+      if (!data.profile) {
 
-    }
+      }
    },
 
   // name: 'DefaultLayout',

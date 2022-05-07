@@ -4,11 +4,7 @@
 <script>
 export default {
   mounted() {
-    sessionStorage.removeItem('username')
-    sessionStorage.removeItem('user_id')
-    sessionStorage.removeItem('password')
-    sessionStorage.removeItem('status')
-    sessionStorage.removeItem('user_level')
+    localStorage.removeItem('token')
     this.$router.push({path: '/login' })
   }
 };
