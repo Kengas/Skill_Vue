@@ -5,6 +5,7 @@
           <input style="display:none;" id="file1" ref="file1" type="file" accept="image/*" @change="handleFileUpload1($event),submitFile1()" multiple>
         </label>
         <v-card height="10%" class="grey lighten-4 paddign">
+          <!-- <img :src='file1' > ทำไมต้องเป็น file1 เป็นตัวอื่นได้มั้ย -->
           <img :src="file1" width="20%">
           <v-card-actions style="font-size:100%">
             <span><i class="fas fa-image fa-2x" /></span>
@@ -237,23 +238,16 @@ import axios from 'axios'
          this.$router.push('/list')
       },
       // อัพโหลดข้อมูล
-      async submitFile1 () {
+      async submitFile1(){
        try{
           const formData = new FormData() // new ใช้สำหรับสร้าง object หรือ arryy ( ไม่แน่ใจว่า array ด้วยหรือป่าว )
           formData.append(`file` , this.$refs.file1.files[0] )
-          console.log(`$refs => ` , this.$refs.file1.files )
-          console.log(`formData => ` , this.$refs.file1.files[0]  )
-
           const res = await axios.post('http://localhost:4500/upload' , formData , {
             headers: {
               'content-type' : 'multipart/form-data'
             }
           })
-          console.log(`ok1 => ` , res.data)
-          console.log(`ok2 => ` , res.data.filesname)                    
           this.test1 = res.data.filesname
-          this.file1.files[0].name = this.test1  
-          // console.log(`test => ` , this.file1.files)
        }catch(e){
           console.log(e.message)
        }
@@ -296,25 +290,19 @@ import axios from 'axios'
           console.log(`ok1 => ` , res.data)
           console.log(`ok2 => ` , res.data.filesname)          
           this.test3 = res.data.filesname
-          // this.file1.files[0].name = this.test2
-          // console.log(`test => ` , this.test2)
        }catch(e){
           console.log(e.message)
        }
       },
-    handleFileUpload1 (e) {
-      // this.file = this.$refs.file.files[0]
+    handleFileUpload1(e) {
       const image = e.target.files[0]
-      console.log('image1 =>' ,e.target.files)
-      console.log('file1 =>' , this.$refs.file1.files[0].name)
-      this.pic1 = this.$refs.file1.files[0].name
+      console.log('image => ',image)
       const reader = new FileReader()
+      console.log('reader => ' , reader)
       reader.readAsDataURL(image)
       reader.onload = (e) => {
         this.file1 = e.target.result
-        console.log('file', this.src)
       }
-    //   console.log('file', this.file)
     },
     handleFileUpload2 (e) {
       // this.file = this.$refs.file.files[0]
